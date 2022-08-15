@@ -22,7 +22,7 @@ there are several steps to run it before you use python3 manage.py runserver. fi
  Just like point 2, now you are looking for a port to connect your email that you got from gmail as well as the gmail apps password that google gave by way of 2-step verification. then fill in the following form.
  ![Screenshot from 2022-08-15 13-41-59](https://user-images.githubusercontent.com/55729354/184642947-43f720cb-0a03-48ad-a244-e8e94fb807e2.png)
  
-#Show Apps Design
+# Show Apps Design
 1. Login Menu
 ![Screenshot from 2022-08-15 13-27-45](https://user-images.githubusercontent.com/55729354/184643016-c51de121-9b61-49c8-bcc8-e763e5a889ef.png)
 
