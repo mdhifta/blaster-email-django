@@ -1,0 +1,74 @@
+{% extends 'master_template.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-6">
+      <h3 class="mb-0 font-weight-bold">{{ account }}</h3>
+      <p>Your login at: {% now "j F Y, H:i A" %}.</p>
+    </div>
+    <div class="col-sm-6">
+      <div class="d-flex align-items-center justify-content-md-end">
+        <div class="mb-3 mb-xl-0 pr-1">
+            <div class="dropdown">
+              <button class="btn bg-white btn-sm dropdown-toggle btn-icon-text border mr-2" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="typcn typcn-user mr-2"></i>Costumer
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3" data-x-placement="top-start">
+                <a class="dropdown-item" href="{% url 'add-costumer' %}">Add Costumer</a>
+                <a class="dropdown-item" href="{% url 'list-costumer' %}">Show Costumer</a>
+              </div>
+            </div>
+        </div>
+        <div class="pr-1 mb-3 mr-2 mb-xl-0">
+          <a href="{% url 'send-email' %}" class="btn btn-sm bg-white btn-icon-text border"><i class="typcn typcn-mail mr-2"></i>Send Email</a>
+        </div>
+        <div class="pr-1 mb-3 mb-xl-0">
+          <a href="#" class="btn btn-sm bg-white btn-icon-text border"><i class="typcn typcn-message mr-2"></i>Send Whatsapp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 d-flex grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex flex-wrap justify-content-between">
+            <h4 class="card-title mb-3">Welcome back in Blaster send broadcast</h4>
+          </div>
+          <div class="row">
+            <div class="col-lg-9">
+              <div class="d-sm-flex justify-content-between">
+                <p>Disseminate all information to your customers, so that you are well known by them.</p>
+              </div>
+              <div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-center">
+                  <img src="{% static 'images/dashboard.svg' %}" alt="dashboard" width="350">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div>
+                <div class="d-flex justify-content-between mb-3">
+                  <div class="text-info font-weight-bold">New Costumer</div>
+                </div>
+
+                {% for costumer in costumers %}
+                <div class="d-flex justify-content-between mb-3">
+                  <div class="font-weight-medium">{{ costumer.costumer_name }}</div>
+                  <div class="text-muted"><h6><span class="badge badge-sm badge-info">NEW</span></h6></div>
+                </div>
+                {% endfor %}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

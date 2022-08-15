@@ -1,0 +1,51 @@
+{% extends 'master_template.html' %}
+
+{% block content %}
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Add New Costumer</h4>
+        <p class="card-description">Complete the form below completely</p>
+        
+        {% include 'alert/messages.html' %}
+        
+            <form class="forms-sample" action="{% url 'edit-proses' %}" method="post">
+                {% csrf_token %}
+              <div class="form-group">
+                <label for="exampleInputName1">Costumer name</label>
+                <input type="text" name="c_name" class="form-control" value="{{ costumer_name }}" placeholder="Name" required>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail3">Email address</label>
+                <input type="email" name="email" class="form-control" value="{{ email_costumer }}" placeholder="Email" required>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword4">Whatsapp number</label>
+                <input type="number" name="num_wa" class="form-control" value="{{ phone_costumer }}" placeholder="Whatsapp Number (Ex: 8505678028)" required>
+              </div>
+              <input type="hidden" name="id" value="{{ id_costumer }}">
+              <div class="form-group">
+                <label for="exampleSelectGender">Gender</label>
+                  <select name="jk" class="form-control">
+                      {% if gender_costumer == "1" %}
+                      <option value="1">Female</option>
+                      <option value="0">Male</option>
+                      {% else %}                    
+                      <option value="0">Male</option>
+                      <option value="1">Female</option>
+                      {% endif %}
+                  </select>
+             </div>
+              <div class="form-group">
+                <label for="exampleTextarea1">Description</label>
+                <textarea name="desc" value="{{ decription }}" class="form-control" rows="4">{{ decription }}</textarea>
+              </div>
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            </form>
+
+
+      </div>
+    </div>
+
+{% endblock %}

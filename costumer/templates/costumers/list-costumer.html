@@ -1,0 +1,112 @@
+{% extends 'master_template.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Costumers List</h4>
+        <p class="card-description">
+          Data All Costumers Blaster Apps
+        </p>
+
+        {% include 'alert/messages.html' %}
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  Costumer name
+                </th>
+                <th>
+                  Gender
+                </th>
+                <th>
+                  Email
+                </th>
+                <th>
+                  Number phone
+                </th>
+                <th>
+                  Description
+                </th>
+                <th>
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for costumer in costumers %}
+              <tr>
+                <td>
+                  {{ costumer.costumer_name }}
+                </td>
+                <td>
+                  {% if costumer.gender_costumer == '1' %}
+                    Perempuan
+                  {% else %}
+                    Laki-laki
+                  {% endif %}
+                </td>
+                <td>
+                  {{ costumer.email_costumer }}
+                </td>
+                <td>
+                  {{ costumer.phone_costumer }}
+                </td>
+                <td>
+                  {{ costumer.decription }}
+                </td>
+                <td>
+                  <a class="btn btn-info btn-sm" href="{% url 'edit-show' costumer.id %}" alt="Update">
+                    <i class="typcn typcn-pen menu-icon"></i>
+                  </a>
+                  <a class="btn mt-1 btn-danger btn-sm" href="{% url 'deleted-costumer' costumer.id %}">
+                    <i class="typcn typcn-trash menu-icon"></i>
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+
+            {% if costumers.has_other_pages %}
+            <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              {% if costumers.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ costumers.previous_page_number }}">&laquo;</a></li>
+              {% else %}
+              <li class="page-item">
+                <a class="page-link" href="#">&laquo;</a>
+              </li>
+              {% endif %}
+              {% for i in costumers.paginator.page_range %}
+                {% if costumers.number == i %}
+                <li class="page-item active">
+                  <a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a>
+                </li>
+                {% else %}
+                  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if costumers.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ costumers.next_page_number }}">&raquo;</a></li>
+              {% else %}
+              <li class="page-item">
+                <a class="page-link" href="#">&raquo;</a>
+              </li>
+              {% endif %}
+            </ul>
+          </nav>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
