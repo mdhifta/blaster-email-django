@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'simpleblaster.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_blaster',
-        'USER': 'mdhifta',
-        'PASSWORD': 'shoera',
+        'NAME': 'db_name',
+        'USER': 'username',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'POSRT': '3306',
     }

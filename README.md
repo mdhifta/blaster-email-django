@@ -7,11 +7,7 @@ there are several steps to run it before you use python3 manage.py runserver. fi
 Run python manage.py makemigrations && python manage.py migrat
 
 # Settings
- 1. Setting Directory on file setting.py
- Setting the directory according to the location of the static file on your computer. Click folder master -> click simpleblaster folder -> click setting.py
- ![Screenshot from 2022-08-15 13-43-00](https://user-images.githubusercontent.com/55729354/184642060-2f7cb05b-6838-4248-983a-ecde68ef440b.png)
- 
- 2. Setting Email and SQL on file setting.py
+ 1. Setting Email and SQL on file setting.py
  Just like point 2, now you are looking for a port to connect your email that you got from gmail as well as the gmail apps password that google gave by way of 2-step verification. then fill in the following form.
  ![Screenshot from 2022-08-15 13-41-59](https://user-images.githubusercontent.com/55729354/184642947-43f720cb-0a03-48ad-a244-e8e94fb807e2.png)
  
