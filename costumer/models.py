@@ -1,9 +1,9 @@
 from django.db import models
 
 # Create your models here.
-class Costumer(models.Model):
-    costumer_name = models.CharField(max_length=144)
-    email_costumer = models.CharField(max_length=144)
-    phone_costumer = models.CharField(max_length=13)
-    gender_costumer = models.CharField(max_length=15)
+class Form(models.Model):
+    costumer_name = models.CharField(max_length=60)
+    email_costumer = models.CharField(max_length=30)
+    phone_costumer = models.CharField(max_length=14)
+    gender_costumer = models.CharField(max_length=30)
     decription = models.CharField(max_length=144)

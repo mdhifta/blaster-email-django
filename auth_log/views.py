@@ -1,79 +1,61 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.sessions.backends.base import UpdateError
 
-#import models
-from .models import Users
-from mysql import connector
-from operator import itemgetter
+# import models
+from auth_log.models import Users
 
-#alert import
+# alert import
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 
-#connection to mysql
-from decouple import config
-
-connect = connector.connect(host=config('DB_HOST'), user=config('DB_USERNAME'), passwd=config('DB_PASSWORD'), database=config('DB_NAME'))
-cursor = connect.cursor(dictionary=True)
-
-#function to login
+# function to login
 def login(request):
     context = {}
     context['title'] = 'Blaster | Login'
 
     if request.method == "POST":
-        #get post
+
+        # get post
         email = request.POST['email']
         password = request.POST['pass']
 
-        query = "SELECT * FROM auth_log_users WHERE username = '{}'".format(email)
-        cursor.execute(query)
+        user = Users.objects.filter(username=email).first()
 
-        account = cursor.fetchall()
-
-        #action to login
-        if account == []:
+        # selection data none or not
+        if user == None:
             messages.error(request, "Email anda tidak dikenali!")
             return redirect('login')
         else:
-            mypassword = ''
-            for row in account:
-                id_user = row['id']
-                name_user = row['fname']+' '+row['lname']
-                mypassword = row['password']
-
-            if check_password(password, mypassword):
-                request.session['id_user'] = id_user
-                request.session['nama_user'] = name_user
+            if check_password(password, user.password):
+                request.session['id_user'] = user.id
+                request.session['nama_user'] = user.fname + ' ' + user.lname
 
                 return redirect('dashboard')
             else:
                 messages.error(request, "Password anda salah!")
                 return redirect('login')
 
-    return render(request, 'login_page.html', context)
+    return render(request, 'auth/_login.html', context)
 
-#function to register
+# function to register
 def register(request):
     context = {}
     context['title'] = 'Blaster | Register'
 
     if request.method == "POST":
-        user = Users()
-
-        #get post data
-        user.fname = request.POST['fname']
-        user.lname = request.POST['lname']
-        user.username = request.POST['username']
-        user.password = make_password(request.POST['pass'])
-
-        if user.fname == "" or user.password == "" or user.username == "":
-            messages.info(request, "Tidak boleh kosong!")
+        try:
+            # check validation form
+            if request.POST['fname'] == "" or request.POST['pass'] == "" or request.POST['username'] == "":
+                messages.error(request, "Form Tidak boleh kosong!")
+                return redirect('register')
+            else:
+                # check save data
+                db = Users(fname=request.POST['fname'], lname=request.POST['lname'],
+                           username=request.POST['username'], password=make_password(request.POST['pass']))
+                db.save()
+                messages.info(request, "Berhasil membuat akun!")
+                return redirect('login')
+        except:
+            messages.error(request, "Email sudah digunakan")
             return redirect('register')
-        else:
-            messages.info(request, "Berhasil membuat akun!")
-            user.save()
-            return redirect('login')
 
-    return render(request, 'register_page.html', context)
+    return render(request, 'auth/_register.html', context)
